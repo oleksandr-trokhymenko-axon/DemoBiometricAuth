@@ -21,14 +21,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        /** Back to auth screen without changes. */
         binding.btnPreviousScreen.setOnClickListener {
             startActivity(AuthActivity.createIntent(this))
         }
 
+        /** Cleared shared prefs and http request for delete session. */
         binding.btnLogOut.setOnClickListener {
             viewModel.logout()
         }
 
+        /** Checking logout event and back to auth screen.  */
         viewModel.userLogged.collect(this) { isLogged ->
             if (!isLogged) startActivity(AuthActivity.createIntent(this@MainActivity))
         }

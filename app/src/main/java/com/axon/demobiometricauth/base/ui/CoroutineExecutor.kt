@@ -22,9 +22,11 @@ internal class CoroutineExecutor(
 
     private val scope = CoroutineScope(dispatcher + SupervisorJob() + exceptionHandler)
 
+    /** Show error bar in UI */
     private val _error by lazy { MutableSharedFlow<AppError>() }
     val error by lazy { _error.asSharedFlow() }
 
+    /** Show progress bar in UI */
     private val _progress by lazy { MutableStateFlow(false) }
     val progress by lazy { _progress.asStateFlow() }
 

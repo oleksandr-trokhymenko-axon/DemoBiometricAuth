@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
+import androidx.security.crypto.MasterKey
 import com.axon.demobiometricauth.base.delegator.value
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -20,12 +20,16 @@ class EncryptPrefsManager @Inject constructor(@ApplicationContext context: Conte
 
     var sessionId: String by prefs.value(PREF_SESSION_ID, "")
 
+    var masterKey = MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
+        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+        .build()
+
     private fun createEncryptedSharedPreferences(context: Context): SharedPreferences? {
         return try {
             EncryptedSharedPreferences.create(
-                PREFS_FILENAME,
-                MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
                 context,
+                PREFS_FILENAME,
+                masterKey,
                 EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                 EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             )

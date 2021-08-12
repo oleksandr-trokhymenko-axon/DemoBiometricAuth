@@ -10,7 +10,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+    /** Use case for delete session http request and clear up shared prefs with sessionId. */
     private val deleteSessionUseCase: DeleteSessionUseCase,
+    /** Use case for check shared prefs session isNotEmpty() */
     private val isUserLoggedUseCase: IsUserLoggedUseCase
 ) : BaseViewModel() {
 

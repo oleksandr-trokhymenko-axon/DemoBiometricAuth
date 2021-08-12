@@ -1,7 +1,6 @@
 package com.axon.demobiometricauth.ui.auth
 
 import com.axon.demobiometricauth.base.ui.BaseViewModel
-import com.axon.demobiometricauth.domain.usecases.auth.DeleteSessionUseCase
 import com.axon.demobiometricauth.domain.usecases.auth.GetSessionWithLoginUseCase
 import com.axon.demobiometricauth.domain.usecases.auth.IsUserLoggedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +12,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
+    /** Use case for get session with login and password input. */
     private val getSessionWithLoginUseCase: GetSessionWithLoginUseCase,
+    /** Use case for check shared prefs session isNotEmpty() */
     private val isUserLoggedUseCase: IsUserLoggedUseCase,
 ) : BaseViewModel() {
 
